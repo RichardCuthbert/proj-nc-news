@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../utils/api";
 import styles from "./Articles.module.css";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -18,14 +18,16 @@ const Articles = () => {
     <section>
       {articles.map((article) => {
         return (
-          <article key={article.article_id} className={styles.container}>
-            <ul>
-              <li>{article.title}</li>
-              <li>{article.author}</li>
-              <li>{article.votes}</li>
-              <li>{article.comment_count}</li>
-            </ul>
-          </article>
+          <Link key={article.article_id} to={`/articles/${article.article_id}`}>
+            <article className={styles.container}>
+              <ul>
+                <li>{article.title}</li>
+                <li>{article.author}</li>
+                <li>{article.votes}</li>
+                <li>{article.comment_count}</li>
+              </ul>
+            </article>
+          </Link>
         );
       })}
     </section>
