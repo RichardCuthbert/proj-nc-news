@@ -1,6 +1,7 @@
 import styles from "./Nav.module.css";
 import { useEffect, useState } from "react";
 import { getTopics } from "../utils/api";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   const [topics, setTopics] = useState([]);
@@ -16,7 +17,11 @@ const Nav = () => {
   return (
     <nav className={styles.container}>
       {topics.map((topic) => {
-        return <span key={topic.slug}>{topic.slug}</span>;
+        return (
+          <Link to={`/topics/${topic.slug}`} key={topic.slug}>
+            {topic.slug}
+          </Link>
+        );
       })}
     </nav>
   );

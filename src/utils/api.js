@@ -10,8 +10,15 @@ export const getTopics = () => {
   });
 };
 
-export const getArticles = () => {
+export const getArticles = (topic_slug) => {
   return newsApi.get("/articles").then((res) => {
+    if (topic_slug) {
+      return res.data.articles.filter((article, index) => {
+        if (article.topic === topic_slug) {
+          return article;
+        }
+      });
+    }
     return res.data.articles;
   });
 };
