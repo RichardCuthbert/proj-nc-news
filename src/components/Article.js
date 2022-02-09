@@ -11,12 +11,15 @@ const Article = () => {
     getArticleById(article_id).then((article) => {
       setArticle(article);
     });
-  }, []);
+  }, [article_id]);
 
   useEffect(() => {
-    getCommentsByArticleId(article_id).then((comments) => {
-      setComments(comments);
-    }, []);
+    getCommentsByArticleId(article_id).then(
+      (comments) => {
+        setComments(comments);
+      },
+      [article_id]
+    );
 
     //mutate state arr
   });
