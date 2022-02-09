@@ -5,14 +5,20 @@ import { useParams, Link } from "react-router-dom";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   const { topic_slug } = useParams();
 
   useEffect(() => {
     getArticles(topic_slug).then((articlesFromApi) => {
       setArticles(articlesFromApi);
+      setLoading(false);
     });
   }, [topic_slug]);
+
+  if (isLoading) {
+    return <p>...loading</p>;
+  }
 
   return (
     <section>
