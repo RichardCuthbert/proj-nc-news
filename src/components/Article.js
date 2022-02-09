@@ -1,31 +1,37 @@
 import { getArticleById, getCommentsByArticleId } from "../utils/api";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { patchVotesByArticleId } from "../utils/api";
 
 const Article = () => {
   const [article, setArticle] = useState([]);
   const [comments, setComments] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const { article_id } = useParams();
-  //const [votes, incrementVotes] = useState(0);
+  const [votes, setVotes] = useState(0);
 
   useEffect(() => {
     getArticleById(article_id).then((article) => {
       setArticle(article);
+      setVotes(article.votes);
     });
   }, [article_id]);
 
   useEffect(() => {
-    getCommentsByArticleId(article_id).then(
-      (comments) => {
-        setComments(comments);
-        setLoading(false);
-      },
-      [article_id]
-    );
+    getCommentsByArticleId(article_id).then((comments) => {
+      setComments(comments);
+      setLoading(false);
+    });
+  }, [article_id]);
 
-    //mutate state arr
-  });
+  //mutate state arr
+
+  const handleVotesClick = () => {
+    setVotes((currVotes) => {
+      return currVotes + 1;
+    });
+    patchVotesByArticleId(article_id).then((res) => {});
+  };
 
   //comment different component
 
@@ -40,7 +46,8 @@ const Article = () => {
         <h3>{article.author}</h3>
         <p>{article.body}</p>
         <p>
-          Votes: {article.votes} <button>Vote</button>
+          Votes: {votes}{" "}
+          <button onClick={() => handleVotesClick()}>Vote</button>
         </p>
         <p>Created at {article.created_at}</p>
       </article>
@@ -49,7 +56,7 @@ const Article = () => {
         {comments.map((comment) => {
           return (
             <article key={comment.comment_id}>
-              <h2>{comment.author}</h2>
+              d <h2>{comment.author}</h2>
               <p>delete</p>
               <p>{comment.body}</p>
               <p>{comment.votes}</p>

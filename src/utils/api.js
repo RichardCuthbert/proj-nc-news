@@ -13,7 +13,7 @@ export const getTopics = () => {
 export const getArticles = (topic_slug) => {
   return newsApi.get("/articles").then((res) => {
     if (topic_slug) {
-      return res.data.articles.filter((article, index) => {
+      return res.data.articles.filter((article) => {
         if (article.topic === topic_slug) {
           return article;
         }
@@ -33,4 +33,14 @@ export const getCommentsByArticleId = (article_id) => {
   return newsApi.get(`articles/${article_id}/comments`).then((res) => {
     return res.data.comments;
   });
+};
+
+export const patchVotesByArticleId = (article_id) => {
+  return newsApi
+    .patch(`articles/${article_id}`, {
+      inc_votes: 1,
+    })
+    .then((res) => {
+      console.log(res);
+    });
 };
