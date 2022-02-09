@@ -7,6 +7,7 @@ const Article = () => {
   const [comments, setComments] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const { article_id } = useParams();
+  //const [votes, incrementVotes] = useState(0);
 
   useEffect(() => {
     getArticleById(article_id).then((article) => {
@@ -28,8 +29,6 @@ const Article = () => {
 
   //comment different component
 
-  //loading screen
-
   if (isLoading) {
     return <p>...loading</p>;
   }
@@ -40,7 +39,9 @@ const Article = () => {
         <h1>{article.title}</h1>
         <h3>{article.author}</h3>
         <p>{article.body}</p>
-        <p>Votes: {article.votes}</p>
+        <p>
+          Votes: {article.votes} <button>Vote</button>
+        </p>
         <p>Created at {article.created_at}</p>
       </article>
       <section>
