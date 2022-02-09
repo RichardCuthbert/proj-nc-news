@@ -1,5 +1,5 @@
 import { getArticleById, getCommentsByArticleId } from "../utils/api";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { patchVotesByArticleId } from "../utils/api";
 
@@ -9,6 +9,7 @@ const Article = () => {
   const [isLoading, setLoading] = useState(true);
   const { article_id } = useParams();
   const [votes, setVotes] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getArticleById(article_id).then((article) => {
@@ -33,6 +34,10 @@ const Article = () => {
     patchVotesByArticleId(article_id).then((res) => {});
   };
 
+  const handleBackClick = () => {
+    return navigate(-1);
+  };
+
   //comment different component
 
   if (isLoading) {
@@ -41,6 +46,7 @@ const Article = () => {
 
   return (
     <section>
+      <button onClick={() => handleBackClick()}>Back to articles</button>
       <article>
         <h1>{article.title}</h1>
         <h3>{article.author}</h3>
