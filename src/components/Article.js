@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 const Article = () => {
   const [article, setArticle] = useState([]);
   const [comments, setComments] = useState([]);
+  const [isLoading, setLoading] = useState(true);
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -17,6 +18,7 @@ const Article = () => {
     getCommentsByArticleId(article_id).then(
       (comments) => {
         setComments(comments);
+        setLoading(false);
       },
       [article_id]
     );
@@ -25,6 +27,12 @@ const Article = () => {
   });
 
   //comment different component
+
+  //loading screen
+
+  if (isLoading) {
+    return <p>...loading</p>;
+  }
 
   return (
     <section>
