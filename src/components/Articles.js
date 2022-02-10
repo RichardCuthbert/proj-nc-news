@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getArticles } from "../utils/api";
 import styles from "./Articles.module.css";
 import { useParams, Link } from "react-router-dom";
+import Header from "./Header";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -33,7 +34,7 @@ const Articles = () => {
   }, [topic_slug, sortBy]);
 
   if (isLoading) {
-    return <p>...loading</p>;
+    return <p className={styles.loading}>...loading</p>;
   }
 
   const handleSortBy = (e) => {
@@ -42,6 +43,7 @@ const Articles = () => {
 
   return (
     <section className={styles.container}>
+      <Header></Header>
       <div>
         <label>
           Sort by{" "}

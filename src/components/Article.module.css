@@ -6,3 +6,11 @@
   display: block;
   color: rgb(134, 101, 101);
 }
+
+.article {
+  border-radius: 15px;
+  box-shadow: 3px -1px 8px -4px #000000;
+  padding: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+}

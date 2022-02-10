@@ -78,7 +78,7 @@ const Article = () => {
   return (
     <section>
       <button onClick={() => handleBackClick()}>Back to articles</button>
-      <article>
+      <article className={styles.article}>
         <h1>{article.title}</h1>
         <h3>{article.author}</h3>
         <p>{article.body}</p>

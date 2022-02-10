@@ -15,8 +15,7 @@ function App() {
     <LoginContext.Provider value={{ user, setUser }}>
       <BrowserRouter>
         <div className="App">
-          <Header></Header>
-          {/* <Nav></Nav> */}
+          {/* <Header></Header> */}
           <Routes>
             <Route path="/" element={<Articles></Articles>}></Route>
             <Route path="/articles" element={<Articles></Articles>}></Route>
