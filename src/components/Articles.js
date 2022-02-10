@@ -41,7 +41,7 @@ const Articles = () => {
   };
 
   return (
-    <section>
+    <section className={styles.container}>
       <div>
         <label>
           Sort by{" "}
@@ -59,7 +59,7 @@ const Articles = () => {
       {articles.map((article) => {
         return (
           <Link key={article.article_id} to={`/articles/${article.article_id}`}>
-            <article className={styles.container}>
+            <article className={styles.articleCard}>
               <ul>
                 <li>{article.title}</li>
                 <li>{article.author}</li>
