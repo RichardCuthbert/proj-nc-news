@@ -6,22 +6,60 @@ import { useParams, Link } from "react-router-dom";
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [sortBy, setSortBy] = useState("created_at");
+
+  const optionsToSortBy = [
+    {
+      label: "Date created",
+      value: "created_at",
+    },
+    {
+      label: "Comment count",
+      value: "comment_count",
+    },
+    {
+      label: "Votes",
+      value: "votes",
+    },
+  ];
 
   const { topic_slug } = useParams();
 
   useEffect(() => {
-    getArticles(topic_slug).then((articlesFromApi) => {
+    getArticles(topic_slug, sortBy).then((articlesFromApi) => {
       setArticles(articlesFromApi);
       setLoading(false);
     });
-  }, [topic_slug]);
+  }, [topic_slug, sortBy]);
 
   if (isLoading) {
     return <p>...loading</p>;
   }
 
+  const handleSortBy = (e) => {
+    setSortBy(e.target.value);
+  };
+
+  //get value from option
+  //handle click set state to value
+  //axios parameter value
+
   return (
     <section>
+      <div>
+        <label>
+          Sort by{" "}
+          <select defaultValue="created_at" onChange={(e) => handleSortBy(e)}>
+            {optionsToSortBy.map((option) => {
+              return (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              );
+            })}
+          </select>
+        </label>
+      </div>
       {articles.map((article) => {
         return (
           <Link key={article.article_id} to={`/articles/${article.article_id}`}>
