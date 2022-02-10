@@ -40,10 +40,6 @@ const Articles = () => {
     setSortBy(e.target.value);
   };
 
-  //get value from option
-  //handle click set state to value
-  //axios parameter value
-
   return (
     <section>
       <div>

@@ -34,6 +34,8 @@ const Article = () => {
     patchVotesByArticleId(article_id).then((res) => {});
   };
 
+  //go forwards instead
+
   const handleBackClick = () => {
     return navigate(-1);
   };

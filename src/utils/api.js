@@ -16,13 +16,6 @@ export const getArticles = (topic_slug, sortBy) => {
       params: { topic: topic_slug, sort_by: sortBy },
     })
     .then((res) => {
-      if (topic_slug) {
-        // return res.data.articles.filter((article) => {
-        //   if (article.topic === topic_slug) {
-        //     return article;
-        //   }
-        // });
-      }
       return res.data.articles;
     });
 };
