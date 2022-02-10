@@ -11,16 +11,20 @@ export const getTopics = () => {
 };
 
 export const getArticles = (topic_slug) => {
-  return newsApi.get("/articles").then((res) => {
-    if (topic_slug) {
-      return res.data.articles.filter((article) => {
-        if (article.topic === topic_slug) {
-          return article;
-        }
-      });
-    }
-    return res.data.articles;
-  });
+  return newsApi
+    .get("/articles", {
+      params: { topic: topic_slug },
+    })
+    .then((res) => {
+      if (topic_slug) {
+        // return res.data.articles.filter((article) => {
+        //   if (article.topic === topic_slug) {
+        //     return article;
+        //   }
+        // });
+      }
+      return res.data.articles;
+    });
 };
 
 export const getArticleById = (article_id) => {
