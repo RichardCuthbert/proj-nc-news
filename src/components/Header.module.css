@@ -2,4 +2,7 @@
   border: 1px solid darksalmon;
   display: grid;
   grid-template-columns: 2fr 1fr;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
