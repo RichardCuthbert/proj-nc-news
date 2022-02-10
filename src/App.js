@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Article from "./components/Article";
 import { LoginContext } from "./contexts/Login";
 import { useState } from "react";
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
   const [user, setUser] = useState("");
@@ -27,6 +28,7 @@ function App() {
               path="/articles/:article_id"
               element={<Article></Article>}
             ></Route>
+            <Route path="*" element={<ErrorPage></ErrorPage>} />
           </Routes>
         </div>
       </BrowserRouter>
