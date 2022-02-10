@@ -41,3 +41,26 @@ export const patchVotesByArticleId = (article_id) => {
       console.log(res);
     });
 };
+
+export const getUserByUsername = (userName) => {
+  return newsApi.get(`/users/${userName}`).then((res) => {
+    return res.data.user;
+  });
+};
+
+export const postComment = (comment, user, article_id) => {
+  return newsApi
+    .post(`/articles/${article_id}/comments`, {
+      body: comment,
+      username: user,
+    })
+    .then((res) => {
+      return res.data.comment;
+    });
+};
+
+export const deleteCommentById = (commentId) => {
+  return newsApi.delete(`/comments/${commentId}`);
+};
+
+//log in stays when refresh page
