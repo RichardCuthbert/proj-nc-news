@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { LoginContext } from "../contexts/Login";
 import { getUserByUsername } from "../utils/api";
+import styles from "./Login.module.css";
 
 const Login = () => {
   const { user, setUser } = useContext(LoginContext);
@@ -16,7 +17,7 @@ const Login = () => {
   //login page
 
   return (
-    <div>
+    <div className={styles.container}>
       <div>{user}</div>
       <button onClick={toggleLogin}>{user ? "Log out" : "Log in"}</button>
     </div>
