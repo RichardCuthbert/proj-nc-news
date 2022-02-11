@@ -48,8 +48,6 @@ const Article = () => {
     patchVotesByArticleId(article_id).then((res) => {});
   };
 
-  //go forwards instead
-
   const handleBackClick = () => {
     return navigate("/");
   };
@@ -60,7 +58,7 @@ const Article = () => {
 
   const handleCommentSubmission = (e) => {
     e.preventDefault();
-    if (user) {
+    if (user && comment != "") {
       postComment(comment, user, article_id).then((returnedComment) => {
         setComments((currComments) => {
           return [returnedComment, ...currComments];
