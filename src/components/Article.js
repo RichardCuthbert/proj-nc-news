@@ -8,6 +8,7 @@ import { postComment } from "../utils/api";
 import styles from "./Article.module.css";
 import { deleteCommentById } from "../utils/api";
 import ErrorPage from "./ErrorPage";
+import Login from "./Login";
 
 const Article = () => {
   const [article, setArticle] = useState([]);
@@ -88,6 +89,7 @@ const Article = () => {
   return (
     <section>
       <button onClick={() => handleBackClick()}>Back to articles</button>
+      <Login></Login>
       <article className={styles.article}>
         <h1>{article.title}</h1>
         <h3>{article.author}</h3>
