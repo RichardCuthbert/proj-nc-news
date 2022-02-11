@@ -4,13 +4,18 @@ import { useNavigate } from "react-router-dom";
 const ErrorPage = (err) => {
   const navigate = useNavigate();
 
-  //nav forward
-
+  if (Object.keys(err).length > 0) {
+    return (
+      <div className={styles.container}>
+        <h1>{err.err.status}</h1>
+        <p>{err.err.data.msg}</p>
+      </div>
+    );
+  }
   return (
-    <div className={styles.container}>
+    <div>
       <button onClick={() => navigate("/")}>Back</button>
-      <h1>{err.err.status}</h1>
-      <p>{err.err.data.msg}</p>
+      <h1>Incorrect path</h1>
     </div>
   );
 };
