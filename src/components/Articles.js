@@ -62,12 +62,12 @@ const Articles = () => {
         return (
           <Link key={article.article_id} to={`/articles/${article.article_id}`}>
             <article className={styles.articleCard}>
-              <ul>
-                <li>{article.title}</li>
-                <li>{article.author}</li>
-                <li>{article.votes}</li>
-                <li>{article.comment_count}</li>
-              </ul>
+              {/* <ul> */}
+              <h1>{article.title}</h1>
+              <h3>Posted by {article.author}</h3>
+              <p>Votes: {article.votes}</p>
+              <p>Comments: {article.comment_count}</p>
+              {/* </ul> */}
             </article>
           </Link>
         );
