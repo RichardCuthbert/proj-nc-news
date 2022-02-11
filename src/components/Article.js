@@ -109,6 +109,13 @@ const Article = () => {
             Please log in to comment
           </p>
           <button>Submit</button>
+          <p
+            className={
+              user !== "" && comment === "" ? styles.show : styles.hidden
+            }
+          >
+            Write a comment
+          </p>
         </form>
         {comments.map((comment) => {
           return (
