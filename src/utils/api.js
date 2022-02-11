@@ -21,9 +21,14 @@ export const getArticles = (topic_slug, sortBy) => {
 };
 
 export const getArticleById = (article_id) => {
-  return newsApi.get(`/articles/${article_id}`).then((res) => {
-    return res.data.article;
-  });
+  return newsApi
+    .get(`/articles/${article_id}`)
+    .then((res) => {
+      return res.data.article;
+    })
+    .catch((err) => {
+      throw err.response;
+    });
 };
 
 export const getCommentsByArticleId = (article_id) => {

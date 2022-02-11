@@ -7,6 +7,7 @@ import { LoginContext } from "../contexts/Login";
 import { postComment } from "../utils/api";
 import styles from "./Article.module.css";
 import { deleteCommentById } from "../utils/api";
+import ErrorPage from "./ErrorPage";
 
 const Article = () => {
   const [article, setArticle] = useState([]);
@@ -17,12 +18,17 @@ const Article = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(LoginContext);
   const [comment, setComment] = useState("");
+  const [err, setErr] = useState(null);
 
   useEffect(() => {
-    getArticleById(article_id).then((article) => {
-      setArticle(article);
-      setVotes(article.votes);
-    });
+    getArticleById(article_id)
+      .then((article) => {
+        setArticle(article);
+        setVotes(article.votes);
+      })
+      .catch((err) => {
+        setErr(err);
+      });
   }, [article_id]);
 
   useEffect(() => {
@@ -70,6 +76,10 @@ const Article = () => {
   };
 
   //comment different component
+
+  if (err) {
+    return <ErrorPage err={err}></ErrorPage>;
+  }
 
   if (isLoading) {
     return <p>...loading</p>;

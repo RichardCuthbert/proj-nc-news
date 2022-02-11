@@ -1,7 +1,7 @@
 import styles from "./ErrorPage.module.css";
 import { useNavigate } from "react-router-dom";
 
-const ErrorPage = () => {
+const ErrorPage = (err) => {
   const navigate = useNavigate();
 
   //nav forward
@@ -9,7 +9,8 @@ const ErrorPage = () => {
   return (
     <div className={styles.container}>
       <button onClick={() => navigate(-1)}>Back</button>
-      <p>Page not found</p>
+      <h1>{err.err.status}</h1>
+      <p>{err.err.data.msg}</p>
     </div>
   );
 };
