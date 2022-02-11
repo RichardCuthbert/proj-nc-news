@@ -23,6 +23,7 @@ function App() {
               path="/topics/:topic_slug"
               element={<Articles></Articles>}
             ></Route>
+            <Route path="/topics" element={<Articles></Articles>}></Route>
             <Route
               path="/articles/:article_id"
               element={<Article></Article>}

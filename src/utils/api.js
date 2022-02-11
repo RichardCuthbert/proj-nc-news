@@ -17,6 +17,9 @@ export const getArticles = (topic_slug, sortBy) => {
     })
     .then((res) => {
       return res.data.articles;
+    })
+    .catch((err) => {
+      throw err.response;
     });
 };
 

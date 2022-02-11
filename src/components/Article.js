@@ -29,7 +29,7 @@ const Article = () => {
       .catch((err) => {
         setErr(err);
       });
-  }, [article_id]);
+  }, [article_id]); //err?
 
   useEffect(() => {
     getCommentsByArticleId(article_id).then((comments) => {
@@ -50,7 +50,7 @@ const Article = () => {
   //go forwards instead
 
   const handleBackClick = () => {
-    return navigate(-1);
+    return navigate("/");
   };
 
   const handleCommentChange = (e) => {

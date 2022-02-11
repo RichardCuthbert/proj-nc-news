@@ -3,11 +3,13 @@ import { getArticles } from "../utils/api";
 import styles from "./Articles.module.css";
 import { useParams, Link } from "react-router-dom";
 import Header from "./Header";
+import ErrorPage from "./ErrorPage";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState("created_at");
+  const [err, setErr] = useState(null);
 
   const optionsToSortBy = [
     {
@@ -27,11 +29,19 @@ const Articles = () => {
   const { topic_slug } = useParams();
 
   useEffect(() => {
-    getArticles(topic_slug, sortBy).then((articlesFromApi) => {
-      setArticles(articlesFromApi);
-      setLoading(false);
-    });
-  }, [topic_slug, sortBy]);
+    getArticles(topic_slug, sortBy)
+      .then((articlesFromApi) => {
+        setArticles(articlesFromApi);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setErr(err);
+      });
+  }, [topic_slug, sortBy]); //err?
+
+  if (err) {
+    return <ErrorPage err={err}></ErrorPage>;
+  }
 
   if (isLoading) {
     return <p className={styles.loading}>...loading</p>;

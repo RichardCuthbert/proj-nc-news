@@ -8,7 +8,7 @@ const ErrorPage = (err) => {
 
   return (
     <div className={styles.container}>
-      <button onClick={() => navigate(-1)}>Back</button>
+      <button onClick={() => navigate("/")}>Back</button>
       <h1>{err.err.status}</h1>
       <p>{err.err.data.msg}</p>
     </div>
