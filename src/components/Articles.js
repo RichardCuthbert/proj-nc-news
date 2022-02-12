@@ -4,27 +4,13 @@ import styles from "./Articles.module.css";
 import { useParams, Link } from "react-router-dom";
 import Header from "./Header";
 import ErrorPage from "./ErrorPage";
+import SortBy from "./SortBy";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState("created_at");
   const [err, setErr] = useState(null);
-
-  const optionsToSortBy = [
-    {
-      label: "Date created",
-      value: "created_at",
-    },
-    {
-      label: "Comment count",
-      value: "comment_count",
-    },
-    {
-      label: "Votes",
-      value: "votes",
-    },
-  ];
 
   const { topic_slug } = useParams();
 
@@ -47,27 +33,10 @@ const Articles = () => {
     return <p className={styles.loading}>...loading</p>;
   }
 
-  const handleSortBy = (e) => {
-    setSortBy(e.target.value);
-  };
-
   return (
     <section className={styles.container}>
       <Header></Header>
-      <div>
-        <label>
-          Sort by{" "}
-          <select defaultValue="created_at" onChange={(e) => handleSortBy(e)}>
-            {optionsToSortBy.map((option) => {
-              return (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              );
-            })}
-          </select>
-        </label>
-      </div>
+      <SortBy sortBy={sortBy} setSortBy={setSortBy}></SortBy>
       {articles.map((article) => {
         return (
           <Link key={article.article_id} to={`/articles/${article.article_id}`}>
