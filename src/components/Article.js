@@ -1,17 +1,17 @@
 import { getArticleById } from "../utils/api";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from "./Article.module.css";
 import ErrorPage from "./ErrorPage";
 import Login from "./Login";
 import Votes from "./Votes";
 import Comments from "./Comments";
+import BackButton from "./BackButton";
 
 const Article = () => {
   const [article, setArticle] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const { article_id } = useParams();
-  const navigate = useNavigate();
   const [votes, setVotes] = useState(0);
   const [err, setErr] = useState(null);
 
@@ -25,13 +25,7 @@ const Article = () => {
       .catch((err) => {
         setErr(err);
       });
-  }, [article_id]); //err?
-
-  //mutate state arr
-
-  const handleBackClick = () => {
-    return navigate("/");
-  };
+  }, [article_id]);
 
   if (err) {
     return <ErrorPage err={err}></ErrorPage>;
@@ -43,7 +37,7 @@ const Article = () => {
 
   return (
     <section>
-      <button onClick={() => handleBackClick()}>Back to articles</button>
+      <BackButton></BackButton>
       <Login></Login>
       <article className={styles.article}>
         <h1>{article.title}</h1>

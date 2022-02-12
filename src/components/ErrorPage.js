@@ -1,9 +1,7 @@
 import styles from "./ErrorPage.module.css";
-import { useNavigate } from "react-router-dom";
+import BackButton from "./BackButton";
 
 const ErrorPage = (err) => {
-  const navigate = useNavigate();
-
   if (Object.keys(err).length > 0) {
     return (
       <div className={styles.container}>
@@ -14,7 +12,7 @@ const ErrorPage = (err) => {
   }
   return (
     <div>
-      <button onClick={() => navigate("/")}>Back</button>
+      <BackButton></BackButton>
       <h1>Incorrect path</h1>
     </div>
   );
