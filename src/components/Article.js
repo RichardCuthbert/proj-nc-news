@@ -1,24 +1,18 @@
-import { getArticleById, getCommentsByArticleId } from "../utils/api";
+import { getArticleById } from "../utils/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useContext } from "react";
-import { LoginContext } from "../contexts/Login";
-import { postComment } from "../utils/api";
 import styles from "./Article.module.css";
-import { deleteCommentById } from "../utils/api";
 import ErrorPage from "./ErrorPage";
 import Login from "./Login";
 import Votes from "./Votes";
+import Comments from "./Comments";
 
 const Article = () => {
   const [article, setArticle] = useState([]);
-  const [comments, setComments] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const { article_id } = useParams();
   const navigate = useNavigate();
-  const { user, setUser } = useContext(LoginContext);
   const [votes, setVotes] = useState(0);
-  const [comment, setComment] = useState("");
   const [err, setErr] = useState(null);
 
   useEffect(() => {
@@ -26,48 +20,18 @@ const Article = () => {
       .then((article) => {
         setArticle(article);
         setVotes(article.votes);
+        setLoading(false);
       })
       .catch((err) => {
         setErr(err);
       });
   }, [article_id]); //err?
 
-  useEffect(() => {
-    getCommentsByArticleId(article_id).then((comments) => {
-      setComments(comments);
-      setLoading(false);
-    });
-  }, [article_id, comments]);
-
   //mutate state arr
 
   const handleBackClick = () => {
     return navigate("/");
   };
-
-  const handleCommentChange = (e) => {
-    setComment(e.target.value);
-  };
-
-  const handleCommentSubmission = (e) => {
-    e.preventDefault();
-    if (user && comment != "") {
-      postComment(comment, user, article_id).then((returnedComment) => {
-        setComments((currComments) => {
-          return [returnedComment, ...currComments];
-        });
-      });
-      setComment("");
-    }
-  };
-
-  const handleDeleteComment = (author, commentId) => {
-    if (user === author) {
-      deleteCommentById(commentId);
-    }
-  };
-
-  //comment different component
 
   if (err) {
     return <ErrorPage err={err}></ErrorPage>;
@@ -92,46 +56,7 @@ const Article = () => {
         ></Votes>
         <p>Created at {article.created_at}</p>
       </article>
-      <section>
-        <h2>Comments</h2>
-        <form onSubmit={(e) => handleCommentSubmission(e)}>
-          <textarea
-            value={comment}
-            onChange={(e) => handleCommentChange(e)}
-          ></textarea>
-          <p className={user ? styles.hidden : styles.show}>
-            Please log in to comment
-          </p>
-          <button>Submit</button>
-          <p
-            className={
-              user !== "" && comment === "" ? styles.show : styles.hidden
-            }
-          >
-            Write a comment
-          </p>
-        </form>
-        {comments.map((comment) => {
-          return (
-            <article key={comment.comment_id}>
-              <h2>{comment.author}</h2>
-              <p
-                className={
-                  user === comment.author ? styles.show : styles.hidden
-                }
-                onClick={() =>
-                  handleDeleteComment(comment.author, comment.comment_id)
-                }
-              >
-                delete
-              </p>
-              <p>{comment.body}</p>
-              <p>{comment.votes}</p>
-              <p>{comment.created_at}</p>
-            </article>
-          );
-        })}
-      </section>
+      <Comments article_id={article_id}></Comments>
     </section>
   );
 };
