@@ -1,8 +1,25 @@
 .container {
   border: 1px solid darksalmon;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  /* grid-template-columns: 2fr 1fr; */
+  grid-template-areas:
+    "logo logo login"
+    "topics topics topics";
+
   position: fixed;
   top: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
+}
+
+.logo {
+  grid-area: logo;
+}
+
+.login {
+  grid-area: login;
+}
+
+.nav {
+  grid-area: topics;
 }

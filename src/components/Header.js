@@ -6,11 +6,11 @@ import Nav from "./Nav";
 const Header = () => {
   return (
     <div className={styles.container}>
-      <Link to="/">
+      <Link className={styles.logo} to="/">
         <h1>NC News</h1>
       </Link>
-      <Login></Login>
-      <Nav></Nav>
+      <Login className={styles.login}></Login>
+      <Nav className={styles.nav}></Nav>
     </div>
   );
 };
