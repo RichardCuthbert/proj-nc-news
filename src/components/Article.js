@@ -1,7 +1,6 @@
 import { getArticleById, getCommentsByArticleId } from "../utils/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { patchVotesByArticleId } from "../utils/api";
 import { useContext } from "react";
 import { LoginContext } from "../contexts/Login";
 import { postComment } from "../utils/api";
@@ -9,15 +8,16 @@ import styles from "./Article.module.css";
 import { deleteCommentById } from "../utils/api";
 import ErrorPage from "./ErrorPage";
 import Login from "./Login";
+import Votes from "./Votes";
 
 const Article = () => {
   const [article, setArticle] = useState([]);
   const [comments, setComments] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const { article_id } = useParams();
-  const [votes, setVotes] = useState(0);
   const navigate = useNavigate();
   const { user, setUser } = useContext(LoginContext);
+  const [votes, setVotes] = useState(0);
   const [comment, setComment] = useState("");
   const [err, setErr] = useState(null);
 
@@ -40,13 +40,6 @@ const Article = () => {
   }, [article_id, comments]);
 
   //mutate state arr
-
-  const handleVotesClick = () => {
-    setVotes((currVotes) => {
-      return currVotes + 1;
-    });
-    patchVotesByArticleId(article_id).then((res) => {});
-  };
 
   const handleBackClick = () => {
     return navigate("/");
@@ -92,10 +85,11 @@ const Article = () => {
         <h1>{article.title}</h1>
         <h3>{article.author}</h3>
         <p>{article.body}</p>
-        <p>
-          Votes: {votes}{" "}
-          <button onClick={() => handleVotesClick()}>Vote</button>
-        </p>
+        <Votes
+          votes={votes}
+          setVotes={setVotes}
+          article_id={article_id}
+        ></Votes>
         <p>Created at {article.created_at}</p>
       </article>
       <section>
